@@ -30,6 +30,7 @@ Connect to https://192.168.8.1:3001 to broadcast, qr codes can be made using htt
 
 ![broadcast](https://github.com/user-attachments/assets/e0fc41ab-1da0-40a3-888b-e165d10d25fb)
 
+- You can save the website on your home screen using the share button to look like an app
 - You will likely need to use safari for your iphone to work
 - Broadcasting does not currently support multiple simultaneous broadcasters one person should disconnect by refreshing
 - Certificates are required for microphone access on modern browsers, hence the invalid warning
