@@ -64,7 +64,7 @@ Albeit too may older devices may impact how many users you can have connect at o
 Do a PR if you have a testimony you would like to share.
 
 # Bandwidth Usage
-iftop registers the wlan1 interface using 2mb for 5 devices during a voice broadcast, extrapolating 50 should only use 100mbps. Which is a lot for what is it is compared to mumble, but we have plenty to spare. I'm not sure how to measure latency for this, but it feels like a zoom call. 
+iftop registers the wlan1 interface using 2mb for 5 devices during a voice broadcast, extrapolating 50 should only use 100mbps. Which is a lot for what is it is compared to mumble, but we have plenty to spare. I'm not sure how to measure latency for this, but it feels like a zoom call. `chrome://webrtc-internals/` gives all kinds of low numbers for bandwidth and latency, I trust with a grain of salt.
 
 # Screenshots
 ![IMG_3717](https://github.com/user-attachments/assets/644e9416-6e4b-432e-aecf-8a7b7f875ebe)
