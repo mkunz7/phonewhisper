@@ -49,6 +49,7 @@ Connect to https://192.168.8.1:3001 to broadcast, qr codes can be made using htt
 | iPhone 6            | 12.5.5     | Listen only        |
 | iPhone 7 Plus       | 14.2       | Listen only        |
 | iPhone 7 Plus       | 15.0.1     | Listen and Broadcast |
+| iPhone 8           | 16.7.8     | Listen and Broadcast |
 | iPhone 11           | 18.1.1     | Listen and Broadcast |
 | iPhone 14           | 18.1.1     | Listen and Broadcast |
 | iPhone 16           | 18.1.1     | Listen and Broadcast |
