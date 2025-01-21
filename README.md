@@ -57,7 +57,11 @@ Connect to https://192.168.8.1:3001 to broadcast, qr codes can be made using htt
 | Windows Chrome      | 10         | Listen and Broadcast |
 | M1 Macbook Air Chrome     | 15         | Listen and Broadcast |
 
-Generally speaking if you have a device < 10 years old it should be fine
+Generally speaking if you have an iphone <10 years old it should be fine with updates. WebRTC saw apple adoption in Sept 2021. WebRTC reached recommendation status Jan 2021. Older androids will work with updated chrome browsers.
+
+Albeit too may older devices may impact how many users you can have connect at once. 
+
+Do a PR if you have a testimony you would like to share.
 
 # Bandwidth Usage
 iftop registers the wlan1 interface using 2mb for 5 devices during a voice broadcast, extrapolating 50 should only use 100mbps
