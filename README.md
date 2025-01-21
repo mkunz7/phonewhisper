@@ -19,7 +19,7 @@ curl https://ku.nz/blog/files/voice-server/install.sh | sh
 ```
 
 # Usage
-Connect to the wifi of your travel router. I recommend making a qr code using qifi.org.
+Connect to the wifi of your travel router. I recommend making a qr code using https://qifi.org.
 
 Connect to http://192.168.8.1:3000 to listen to a stream, qr codes can be made using https://qr.15c.me/qr.html
 
