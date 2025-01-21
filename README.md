@@ -57,6 +57,8 @@ Connect to https://192.168.8.1:3001 to broadcast, qr codes can be made using htt
 | Windows Chrome      | 10         | Listen and Broadcast |
 | M1 Macbook Air Chrome     | 15         | Listen and Broadcast |
 
+Generally speaking if you have a device < 10 years old it should be fine
+
 # Bandwidth Usage
 iftop registers the wlan1 interface using 2mb for 5 devices during a voice broadcast, extrapolating 50 should only use 100mbps
 
