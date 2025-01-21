@@ -32,7 +32,7 @@ Connect to https://192.168.8.1:3001 to broadcast, qr codes can be made using htt
 
 - You can save the website on your home screen using the share button to look like an app
 - You will likely need to use safari for your iphone to work
-- Broadcasting does not currently support multiple simultaneous broadcasters one person should disconnect by refreshing
+- Broadcasting does not currently support multiple simultaneous broadcasters, the latest takes over, one person should disconnect by refreshing to prevent issues
 - Certificates are required for microphone access on modern browsers, hence the invalid warning
 - The broadcaster will need to accept the invalid certificate, the one I've included is good for 100 years. It was generated using `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 36500 -nodes`
 - This should work when the screen locks (YMMV)
