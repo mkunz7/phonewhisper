@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Broadcast</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Keeping your existing styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f0f2f5;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #1a1a1a;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .button {
+            width: 100%;
+            max-width: 300px;
+            padding: 1rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #startButton {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #startButton:hover {
+            background-color: #45a049;
+        }
+
+        #startButton:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        #muteButton {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        #muteButton:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        #muteButton.active {
+            background-color: #f44336;
+        }
+
+        #status {
+            margin: 1rem 0;
+            padding: 1rem;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #listenerCount {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Audio Broadcaster</h1>
+    <button id="startButton" class="button">Start Broadcasting</button>
+    <button id="muteButton" class="button" disabled>Mute</button>
+    <div id="status"></div>
+    <div id="listenerCount">Connected Listeners: 0</div>
+    <script>
+        let ws;
+        let peerConnections = {};
+        let localStream = null;
+        let isMuted = false;
+        
+        const config = { 
+            iceServers: [],
+            iceTransportPolicy: 'all'
+        };
+
+        const statusDiv = document.getElementById('status');
+        const startButton = document.getElementById('startButton');
+        const muteButton = document.getElementById('muteButton');
+        const listenerCountDiv = document.getElementById('listenerCount');
+        
+        function connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+            
+            ws.onopen = () => {
+                console.log('WebSocket connected');
+            };
+            
+            ws.onmessage = async (event) => {
+                const message = JSON.parse(event.data);
+                
+                switch(message.type) {
+                    case 'watcher':
+                        const peerConnection = new RTCPeerConnection(config);
+                        peerConnections[message.id] = peerConnection;
+
+                        localStream.getTracks().forEach(track => 
+                            peerConnection.addTrack(track, localStream));
+
+                        peerConnection.onicecandidate = event => {
+                            if (event.candidate && event.candidate.candidate.includes('host')) {
+                                ws.send(JSON.stringify({
+                                    type: 'candidate',
+                                    id: message.id,
+                                    candidate: event.candidate
+                                }));
+                            }
+                        };
+
+                        const offer = await peerConnection.createOffer();
+                        await peerConnection.setLocalDescription(offer);
+                        ws.send(JSON.stringify({
+                            type: 'offer',
+                            id: message.id,
+                            description: peerConnection.localDescription
+                        }));
+                        
+                        updateListenerCount();
+                        break;
+                        
+                    case 'answer':
+                        await peerConnections[message.id].setRemoteDescription(message.description);
+                        break;
+                        
+                    case 'candidate':
+                        await peerConnections[message.id].addIceCandidate(new RTCIceCandidate(message.candidate));
+                        break;
+                        
+                    case 'disconnectPeer':
+                        if (peerConnections[message.id]) {
+                            peerConnections[message.id].close();
+                            delete peerConnections[message.id];
+                            updateListenerCount();
+                        }
+                        break;
+                }
+            };
+            
+            ws.onclose = () => {
+                console.log('WebSocket disconnected');
+                setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
+            };
+        }
+        
+        function updateListenerCount() {
+            const count = Object.keys(peerConnections).length;
+            listenerCountDiv.textContent = `Connected Listeners: ${count}`;
+        }
+
+        muteButton.onclick = () => {
+            if (localStream) {
+                isMuted = !isMuted;
+                localStream.getAudioTracks().forEach(track => {
+                    track.enabled = !isMuted;
+                });
+                muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
+                muteButton.classList.toggle('active', isMuted);
+                statusDiv.textContent = isMuted ? 'Broadcasting (Muted)' : 'Broadcasting';
+            }
+        };
+
+        startButton.onclick = async () => {
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: {
+                        echoCancellation: true,
+                        noiseSuppression: true,
+                        autoGainControl: true
+                    },
+                    video: false
+                });
+                
+                statusDiv.textContent = 'Broadcasting...';
+                startButton.disabled = true;
+                muteButton.disabled = false;
+                
+                connectWebSocket();
+                ws.onopen = () => {
+                    ws.send(JSON.stringify({ type: 'broadcaster' }));
+                };
+                
+            } catch (err) {
+                statusDiv.textContent = 'Error: ' + err.message;
+                console.error('Error:', err);
+            }
+        };
+
+        window.onunload = window.onbeforeunload = () => {
+            if (ws) {
+                ws.close();
+            }
+            Object.keys(peerConnections).forEach(key => {
+                peerConnections[key].close();
+            });
+        };
+    </script>
+</body>
+</html>

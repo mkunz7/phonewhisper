@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #f0f2f5;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #1a1a1a;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        #startButton {
+            width: 100%;
+            max-width: 300px;
+            padding: 1.2rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            background-color: #4CAF50;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #startButton:hover {
+            background-color: #45a049;
+        }
+
+        #startButton:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        #status {
+            margin: 1rem 0;
+            padding: 1rem;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #status.no-broadcaster {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            background-color: #ffebee;
+            border: 1px solid #ffcdd2;
+        }
+
+        #countdown {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #f44336;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        #audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Audio Listener</h1>
+    <button id="startButton">Start Listening</button>
+    <audio id="audio"></audio>
+    <div id="status"></div>
+    <div id="countdown" style="display: none;"></div>
+    <script>
+        let ws;
+        let peerConnection;
+        const config = { 
+            iceServers: [],
+            iceTransportPolicy: 'all'
+        };
+
+        const statusDiv = document.getElementById('status');
+        const audioElement = document.getElementById('audio');
+        const startButton = document.getElementById('startButton');
+        const countdownDiv = document.getElementById('countdown');
+        let isStarted = false;
+        let countdownTimer = null;
+        
+        function connectWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            ws = new WebSocket(`${protocol}//${window.location.host}/ws`);
+            
+            ws.onopen = () => {
+                console.log('WebSocket connected');
+                if (isStarted) {
+                    ws.send(JSON.stringify({ type: 'watcher' }));
+                }
+            };
+            
+            ws.onmessage = async (event) => {
+                const message = JSON.parse(event.data);
+                
+                switch(message.type) {
+                    case 'offer':
+                        peerConnection = new RTCPeerConnection(config);
+                        
+                        peerConnection.ontrack = event => {
+                            audioElement.srcObject = event.streams[0];
+                            if (isStarted) audioElement.play().catch(console.error);
+                            statusDiv.textContent = 'Connected - receiving audio';
+                            startButton.textContent = 'Connected';
+                            startButton.disabled = true;
+                            
+                            if (countdownTimer) {
+                                clearInterval(countdownTimer);
+                                countdownTimer = null;
+                                countdownDiv.style.display = 'none';
+                            }
+                        };
+
+                        peerConnection.onicecandidate = event => {
+                            if (event.candidate && event.candidate.candidate.includes('host')) {
+                                ws.send(JSON.stringify({
+                                    type: 'candidate',
+                                    id: message.id,
+                                    candidate: event.candidate
+                                }));
+                            }
+                        };
+
+                        await peerConnection.setRemoteDescription(message.description);
+                        const answer = await peerConnection.createAnswer();
+                        await peerConnection.setLocalDescription(answer);
+                        
+                        ws.send(JSON.stringify({
+                            type: 'answer',
+                            id: message.id,
+                            description: peerConnection.localDescription
+                        }));
+                        break;
+                        
+                    case 'candidate':
+                        if (peerConnection) {
+                            await peerConnection.addIceCandidate(new RTCIceCandidate(message.candidate));
+                        }
+                        break;
+                        
+                    case 'broadcasterDisconnected':
+                        statusDiv.textContent = 'Broadcaster disconnected';
+                        statusDiv.className = 'no-broadcaster';
+                        if (peerConnection) {
+                            peerConnection.close();
+                        }
+                        startButton.disabled = true;
+                        startButton.textContent = 'Waiting...';
+                        startCountdown();
+                        break;
+                        
+                    case 'broadcasterConnected':
+                        if (isStarted) {
+                            statusDiv.textContent = 'Broadcaster detected, reconnecting...';
+                            ws.send(JSON.stringify({ type: 'watcher' }));
+                        } else {
+                            statusDiv.textContent = 'Broadcaster available - click Start to connect';
+                            statusDiv.className = '';
+                            startButton.disabled = false;
+                        }
+                        break;
+                        
+                    case 'noBroadcaster':
+                        statusDiv.textContent = 'No broadcaster available';
+                        statusDiv.className = 'no-broadcaster';
+                        startButton.disabled = true;
+                        startCountdown();
+                        break;
+                }
+            };
+            
+            ws.onclose = () => {
+                console.log('WebSocket disconnected');
+                setTimeout(connectWebSocket, 1000); // Reconnect after 1 second
+            };
+        }
+
+        function startCountdown() {
+            if (countdownTimer) {
+                clearInterval(countdownTimer);
+            }
+            
+            countdownDiv.style.display = 'block';
+            let countdown = 5;
+            
+            countdownTimer = setInterval(() => {
+                countdownDiv.textContent = `Reloading in ${countdown} seconds...`;
+                countdown--;
+                
+                if (countdown < 0) {
+                    clearInterval(countdownTimer);
+                    window.location.reload();
+                }
+            }, 1000);
+        }
+        
+        startButton.onclick = () => {
+            if (!isStarted) {
+                isStarted = true;
+                connectWebSocket();
+                statusDiv.textContent = 'Checking for broadcaster...';
+                startButton.textContent = 'Connecting...';
+                startButton.disabled = true;
+            }
+        };
+
+        // Auto-connect WebSocket
+        connectWebSocket();
+
+        window.onunload = window.onbeforeunload = () => {
+            if (ws) {
+                ws.close();
+            }
+            if (peerConnection) {
+                peerConnection.close();
+            }
+        };
+    </script>
+</body>
+</html>
