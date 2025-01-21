@@ -55,7 +55,7 @@ Connect to https://192.168.8.1:3001 to broadcast, qr codes can be made using htt
 | iPhone 16           | 18.1.1     | Listen and Broadcast |
 | Blu View 2          | Android 10 | Listen and Broadcast |
 | Windows Chrome      | 10         | Listen and Broadcast |
-| M1 Macbook Air Chrome     | Monterey         | Listen and Broadcast |
+| M1 Macbook Air Chrome     | Sequoia         | Listen and Broadcast |
 
 Generally speaking if you have an iphone <10 years old it should be fine with updates. WebRTC saw apple adoption in Sept 2021. WebRTC reached recommendation status Jan 2021. Older androids will work with updated chrome browsers.
 
