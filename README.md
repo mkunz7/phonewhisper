@@ -30,6 +30,7 @@ Connect to https://192.168.8.1:3001 to broadcast, qr codes can be made using htt
 
 ![broadcast](https://github.com/user-attachments/assets/e0fc41ab-1da0-40a3-888b-e165d10d25fb)
 
+- You will likely need to use safari for your iphone to work
 - Broadcasting does not currently support multiple simultaneous broadcasters one person should disconnect by refreshing
 - Certificates are required for microphone access on modern browsers, hence the invalid warning
 - The broadcaster will need to accept the invalid certificate, the one I've included is good for 100 years. It was generated using `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 36500 -nodes`
@@ -51,7 +52,8 @@ Connect to https://192.168.8.1:3001 to broadcast, qr codes can be made using htt
 | iPhone 14           | 18.1.1     | Listen and Broadcast |
 | iPhone 16           | 18.1.1     | Listen and Broadcast |
 | Blu View 2          | Android 10 | Listen and Broadcast |
-
+| Windows Chrome      | 10         | Listen and Broadcast |
+| M1 Macbook Air      | 15         | Listen and Broadcast |
 
 # Bandwidth Usage
 iftop registers the wlan1 interface using 2mb for 5 devices during a voice broadcast, extrapolating 50 should only use 100mbps
