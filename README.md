@@ -7,7 +7,7 @@ You no longer need to rent a $500 set of whisper devices that can be lost or pay
 
 Connections are established with websockets and voice is transmitted via WebRTC all locally. All phones can be in airplane mode and receive voice from the wifi on an travel router without internet.
 
-I host this on a `glinet slate ax` you can likely use the cheaper `glinet opal` as well if you don't need to support 50+ users. These are armv7 openwrt devices, others will likley work if you don't mind recompiling.
+I host this on a `glinet slate ax` you can likely use the cheaper $30 `glinet opal` as well if you don't need to support 50+ users. These are armv7 openwrt devices, others will likley work if you don't mind recompiling.
 
 I searched the internet for a while and couldn't find any software that does this. I originally went down the path of using icecast but ran into 5s delays. I tried mumble as well, but mid compiling the mumble webrtc proxy from 5 years and running into dependency issues I figured it would be easier to just write something purpose built myself.
 
