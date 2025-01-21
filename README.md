@@ -1,5 +1,5 @@
 # PhoneWhisper
-Voice chat for a tour guide using a phone and a travel router without needing internet.
+Voice chat for a tour group using phones and a travel router without needing internet.
 
 A modern take on offline voice chat in 2025.
 
