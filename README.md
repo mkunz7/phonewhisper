@@ -58,3 +58,9 @@ Connect to https://192.168.8.1:3001 to broadcast, qr codes can be made using htt
 
 # Bandwidth Usage
 iftop registers the wlan1 interface using 2mb for 5 devices during a voice broadcast, extrapolating 50 should only use 100mbps
+
+# Screenshots
+![IMG_3717](https://github.com/user-attachments/assets/644e9416-6e4b-432e-aecf-8a7b7f875ebe)
+![IMG_0013](https://github.com/user-attachments/assets/19358e61-1377-4015-819d-404e2d4b458d)
+
+
