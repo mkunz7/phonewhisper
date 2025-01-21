@@ -32,11 +32,11 @@ Connect to https://192.168.8.1:3001 to broadcast, qr codes can be made using htt
 
 - Broadcasting does not currently support multiple simultaneous broadcasters one person should disconnect by refreshing
 - Certificates are required for microphone access on modern browsers, hence the invalid warning
-- The broadcaster will need to accept the invalid certificate, the one I've included is good for 100 years.
+- The broadcaster will need to accept the invalid certificate, the one I've included is good for 100 years. It was generated using `openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 36500 -nodes`
 - This should work when the screen locks (YMMV)
 - Headphones / Bluetooth devices are recommended to prevent feedback loops
-- Should run for 12+ hours on a 20,000mah battery brick with usbc
-- I used a Thousover USBC to 3.5mm+charger cable https://www.amazon.com/Headphone-Charger-Adapter-Charging-Compatible/dp/B09QJYVF68 with a wired headphone and got charging to work at the same time
+- This should run for 12+ hours on a 20,000mah battery brick with usbc
+- I used a Thousover USBC to 3.5mm+charger cable https://www.amazon.com/Headphone-Charger-Adapter-Charging-Compatible/dp/B09QJYVF68 with a wired headphone and got charging and voice to work at the same time. YMMV with other branded OTG cables.
   
 # Tested Devices
 
