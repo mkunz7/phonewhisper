@@ -14,13 +14,11 @@ mkdir -p /usr/share/voice-server/public
 ARCH=$(uname -m)
 if echo "$ARCH" | grep -q "mips"; then
     echo -e "System is running on MIPS assuming le.\n"
-    sleep 1
     wget https://github.com/mkunz7/phonewhisper/releases/download/main/voice-server-linux-mipsle -O /usr/share/voice-server/voiceserver
 
 # Check for ARMv7
 elif echo "$ARCH" | grep -q "armv7"; then
     echo -e "System is running on ARMv7.\n"
-    sleep 1
     wget https://github.com/mkunz7/phonewhisper/releases/download/main/voice-server-linux-arm7 -O /usr/share/voice-server/voiceserver
 
 else
