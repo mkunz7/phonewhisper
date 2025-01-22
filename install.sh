@@ -13,12 +13,12 @@ fi
 ARCH=$(uname -m)
 if echo "$ARCH" | grep -q "mips"; then
     echo "System is running on MIPS."
-    curl https://github.com/mkunz7/phonewhisper/releases/download/main/voice-server-linux-mips -o /usr/share/voice-server/voiceserver
+    curl -L https://github.com/mkunz7/phonewhisper/releases/download/main/voice-server-linux-mips -o /usr/share/voice-server/voiceserver
 
 # Check for ARMv7
 elif echo "$ARCH" | grep -q "armv7"; then
     echo "System is running on ARMv7."
-    curl https://github.com/mkunz7/phonewhisper/releases/download/main/voice-server-linux-arm7 -o /usr/share/voice-server/voiceserver
+    curl -L https://github.com/mkunz7/phonewhisper/releases/download/main/voice-server-linux-arm7 -o /usr/share/voice-server/voiceserver
 
 else
     echo "Architecture not currently supported by installer: $ARCH"
