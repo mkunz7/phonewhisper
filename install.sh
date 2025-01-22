@@ -21,6 +21,10 @@ curl https://raw.githubusercontent.com/mkunz7/phonewhisper/refs/heads/main/voice
 curl https://raw.githubusercontent.com/mkunz7/phonewhisper/refs/heads/main/public/listen.html -o /usr/share/voice-server/public/listen.html
 curl https://raw.githubusercontent.com/mkunz7/phonewhisper/refs/heads/main/public/broadcast.html -o /usr/share/voice-server/public/broadcast.html
 
+#openssl req -x509 -newkey rsa:4096 -keyout /usr/share/voice-server/key.pem -out /usr/share/voice-server/cert.pem -days 36500 -nodes -subj "/CN=localhost"
+curl https://raw.githubusercontent.com/mkunz7/phonewhisper/refs/heads/main/cert.pem -o /usr/share/voice-server/cert.pem
+curl https://raw.githubusercontent.com/mkunz7/phonewhisper/refs/heads/main/key.pem -o /usr/share/voice-server/key.pem
+
 chmod +x /usr/share/voice-server/voiceserver
 chmod +x /etc/init.d/voice-server
 
