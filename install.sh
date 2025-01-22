@@ -4,9 +4,10 @@ mkdir -p /usr/share/voice-server/public
 
 # cleanup
 if [ -f /usr/share/voice-server/voiceserver ]; then
-    /etc/init.d/voice-server stop
-    /etc/init.d/voice-server disable
-    rm -rf /usr/share/voice-server
+    echo "cleaning up previous install"
+    /etc/init.d/voice-server stop 2>&1
+    /etc/init.d/voice-server disable 2>&1
+    rm -rf /usr/share/voice-server 
     rm -f /etc/init.d/voice-server
 fi
 
@@ -38,4 +39,5 @@ chmod +x /etc/init.d/voice-server
 
 /etc/init.d/voice-server start
 /etc/init.d/voice-server enable
+netstat -tulpnw | grep 300
 echo "done"
