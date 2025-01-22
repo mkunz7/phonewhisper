@@ -1,11 +1,11 @@
 #!/bin/sh
 # cleanup
 if [ -f /usr/share/voice-server/voiceserver ]; then
-    echo "cleaning up previous install"
+    echo -e "Cleaning up previous install\n"
     /etc/init.d/voice-server stop 2>&1
     /etc/init.d/voice-server disable 2>&1
-    rm -rf /usr/share/voice-server 
-    rm -f /etc/init.d/voice-server
+    rm -rf /usr/share/voice-server 2>&1
+    rm -f /etc/init.d/voice-server 2>&1
 fi
 
 mkdir -p /usr/share/voice-server
@@ -13,12 +13,14 @@ mkdir -p /usr/share/voice-server/public
 
 ARCH=$(uname -m)
 if echo "$ARCH" | grep -q "mips"; then
-    echo "System is running on MIPS assuming le."
+    echo -e "System is running on MIPS assuming le.\n"
+    sleep 1
     wget https://github.com/mkunz7/phonewhisper/releases/download/main/voice-server-linux-mipsle -O /usr/share/voice-server/voiceserver
 
 # Check for ARMv7
 elif echo "$ARCH" | grep -q "armv7"; then
-    echo "System is running on ARMv7."
+    echo -e "System is running on ARMv7.\n"
+    sleep 1
     wget https://github.com/mkunz7/phonewhisper/releases/download/main/voice-server-linux-arm7 -O /usr/share/voice-server/voiceserver
 
 else
