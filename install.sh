@@ -6,7 +6,6 @@ if [ -f /usr/share/voice-server/voiceserver ]; then
     /etc/init.d/voice-server disable 2>&1
     rm -rf /usr/share/voice-server 2>&1
     rm -f /etc/init.d/voice-server 2>&1
-    sleep 2
 fi
 
 mkdir -p /usr/share/voice-server
