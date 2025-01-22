@@ -2,6 +2,14 @@
 mkdir -p /usr/share/voice-server
 mkdir -p /usr/share/voice-server/public
 
+# cleanup
+if [ -f /usr/share/voice-server/voiceserver ]; then
+    /etc/init.d/voice-server stop
+    /etc/init.d/voice-server disable
+    rm -rf /usr/share/voice-server
+    rm -f /etc/init.d/voice-server
+fi
+
 ARCH=$(uname -m)
 if echo "$ARCH" | grep -q "mips"; then
     echo "System is running on MIPS."
