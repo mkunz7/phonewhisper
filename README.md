@@ -7,17 +7,22 @@ You no longer need to rent a $500 set of whisper devices that can be lost or pay
 
 Connections are established with websockets and voice is transmitted via WebRTC all locally. All phones can be in airplane mode and receive voice from the wifi on an travel router without internet.
 
-I host this on a `glinet slate ax` you can likely use the cheaper $30 `glinet opal` as well if you don't need to support 50+ users. These are armv7 openwrt devices, others will likley work if you don't mind recompiling.
+I host this on a `glinet slate ax` you can use the cheaper $30 `glinet opal` as well if you don't need to support 50+ users. The slate is an armv7 openwrt device while the opal is mips, others openwrt devices will likley work if you don't mind recompiling.
 
 I searched the internet for a while and couldn't find any software that does this. I originally went down the path of using icecast but ran into large delays even after removing the buffer it was still around 5s. I tried mumble as well, but mid compiling the mumble webrtc proxy from 5 years ago and running into dependency issues I figured it would be easier to just write something purpose built myself. I almost modified umurmur to only enable broadcasting by certain users, but decided it's going to be a pain to get users to install this unfortuantely outdated and clumsy mumble app.
 
 # Installation
 
+## slate
 ```
 ssh root@192.168.8.1
 curl https://ku.nz/blog/files/voice-server/install.sh | sh
 ```
-
+## opal
+```
+ssh -oHostKeyAlgorithms=+ssh-rsa root@192.168.8.1
+curl https://ku.nz/blog/files/voice-server/install.sh | sh
+```
 # Usage
 Connect to the wifi of your travel router. I recommend making a qr code using https://qifi.org.
 
