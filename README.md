@@ -7,21 +7,21 @@ You no longer need to rent a $500 set of whisper devices that can be lost or pay
 
 Connections are established with websockets and voice is transmitted via WebRTC all locally. All phones can be in airplane mode and receive voice from the wifi on an travel router without internet.
 
-I host this on a `glinet slate ax` you can use the cheaper $30 `glinet opal` as well if you don't need to support 50+ users. The slate is an armv7 openwrt device while the opal is mips, others openwrt devices will likley work if you don't mind recompiling.
+I host this on a `glinet slate ax` you can use the cheaper $30 `glinet opal` as well if you don't need to support 50+ users. The slate is an armv7 openwrt device while the opal is mips, other openwrt devices will likley work if you don't mind recompiling.
 
 I searched the internet for a while and couldn't find any software that does this. I originally went down the path of using icecast but ran into large delays even after removing the buffer it was still around 5s. I tried mumble as well, but mid compiling the mumble webrtc proxy from 5 years ago and running into dependency issues I figured it would be easier to just write something purpose built myself. I almost modified umurmur to only enable broadcasting by certain users, but decided it's going to be a pain to get users to install this unfortuantely outdated and clumsy mumble app.
 
 # Installation
 
-## slate
+## glient slate
 ```
 ssh root@192.168.8.1
-curl https://ku.nz/blog/files/voice-server/install.sh | sh
+curl https://raw.githubusercontent.com/mkunz7/phonewhisper/refs/heads/main/install.sh | sh
 ```
-## opal
+## glinet opal
 ```
 ssh -oHostKeyAlgorithms=+ssh-rsa root@192.168.8.1
-curl https://ku.nz/blog/files/voice-server/install.sh | sh
+curl https://raw.githubusercontent.com/mkunz7/phonewhisper/refs/heads/main/install.sh | sh
 ```
 # Usage
 Connect to the wifi of your travel router. I recommend making a qr code using https://qifi.org.
@@ -56,8 +56,8 @@ Connect to https://192.168.8.1:3001 to broadcast, qr codes can be made using htt
 | iPhone 7 Plus       | 15.0.1     | Listen and Broadcast |
 | iPhone 8           | 16.7.8     | Listen and Broadcast |
 | iPhone 11           | 18.1.1     | Listen and Broadcast |
-| iPhone 14           | 18.1.1     | Listen and Broadcast |
-| iPhone 16           | 18.1.1     | Listen and Broadcast |
+| iPhone 14 Pro          | 18.1.1     | Listen and Broadcast |
+| iPhone 16 Pro          | 18.2.1     | Listen and Broadcast |
 | Blu View 2          | Android 10 | Listen and Broadcast |
 | Windows Chrome      | 10         | Listen and Broadcast |
 | M1 Macbook Air Chrome     | Sequoia         | Listen and Broadcast |
