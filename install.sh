@@ -1,5 +1,5 @@
 #!/bin/sh
-echo " "
+
 # cleanup
 if [ -f /usr/share/voice-server/voiceserver ]; then
     echo -e "Cleaning up previous install\n"
