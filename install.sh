@@ -1,7 +1,4 @@
 #!/bin/sh
-mkdir -p /usr/share/voice-server
-mkdir -p /usr/share/voice-server/public
-
 # cleanup
 if [ -f /usr/share/voice-server/voiceserver ]; then
     echo "cleaning up previous install"
@@ -10,6 +7,9 @@ if [ -f /usr/share/voice-server/voiceserver ]; then
     rm -rf /usr/share/voice-server 
     rm -f /etc/init.d/voice-server
 fi
+
+mkdir -p /usr/share/voice-server
+mkdir -p /usr/share/voice-server/public
 
 ARCH=$(uname -m)
 if echo "$ARCH" | grep -q "mips"; then
