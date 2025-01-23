@@ -7,7 +7,7 @@ You no longer need to rent a $500 set of whisper devices that can be lost or pay
 
 You can use your own wireless headphones like airpods and don't need to worry about hygiene issues.
 
-Connections are established with websockets and voice is transmitted via WebRTC all locally. 
+Connections are established with websockets and voice is transmitted via encrypted WebRTC all locally. 
 
 All phones can be in airplane mode and receive voice from the wifi on an travel router without any internet.
 
