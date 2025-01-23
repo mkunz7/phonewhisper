@@ -1,11 +1,15 @@
 # PhoneWhisper
 Voice chat for a tour group using phones and a travel router without needing internet.
 
-A modern take on offline voice chat in 2025.
+This is a modern take on offline voice chat in 2025 that does not require any apps, has no account signups, and can be instantly setup by scanning a qr code to connect to wifi and another to open a website.
 
-You no longer need to rent a $500 set of whisper devices that can be lost or pay daily fees to LiveTours.
+You no longer need to rent a $500 set of whisper devices that can be lost or pay daily fees to LiveTours. 
 
-Connections are established with websockets and voice is transmitted via WebRTC all locally. All phones can be in airplane mode and receive voice from the wifi on an travel router without internet.
+You can use your own wireless headphones like airpods and don't need to worry about hygene issues.
+
+Connections are established with websockets and voice is transmitted via WebRTC all locally. 
+
+All phones can be in airplane mode and receive voice from the wifi on an travel router without any internet.
 
 I host this on a $120 `glinet slate ax`. You can also use the cheaper $30 `glinet opal`. I built and tested this on a faster router because I needed to support 50+ users. GliNet advertises the opal will work with a max of 52 users and the slate will handle 120. Advertisements aside. When calculating pi, a fairly memory intensive operation as well, the opal took about 68x longer, for phonewhisper I don't think this will matter much. The more important features are likely range and network bandwidth. I was able to push 500mbps over wifi on the opal and line of sight you won't have range issues. While untested in a group setting, it'll likely functionally work the same for large groups at a much cheaper price. 
 
