@@ -34,7 +34,7 @@ password is whatever you used during setup, default is goodlife
 ```
 curl https://raw.githubusercontent.com/mkunz7/phonewhisper/refs/heads/main/install.sh | sh
 ```
-
+that's it, this only takes seconds to install, if you see the word done it worked
 # Usage
 Connect to the wifi of your travel router. I recommend making a qr code using https://qifi.org.
 
