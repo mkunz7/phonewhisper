@@ -55,7 +55,7 @@ Connect to https://192.168.8.1:3001 to broadcast, qr codes can be made using htt
 - This should work when the screen locks (YMMV), the broadcaster should probably have their screen set to never sleep, do some testing on your own.
 - Headphones / Bluetooth devices are recommended to prevent feedback loops
 - This should run for 12+ hours on a 20,000mah battery brick with usbc
-- I used a Thousover USBC to 3.5mm+charger cable https://www.amazon.com/Headphone-Charger-Adapter-Charging-Compatible/dp/B09QJYVF68 with a wired headphone and got charging and voice to work at the same time. YMMV with other branded OTG cables.
+- I used a Thousover USBC to 3.5mm+charger cable https://www.amazon.com/Headphone-Charger-Adapter-Charging-Compatible/dp/B09QJYVF68 on a cheap android burner phone with a wired headphone and got charging and voice to work at the same time. YMMV with other branded OTG cables.
   
 # Tested Devices
 
