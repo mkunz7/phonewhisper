@@ -16,6 +16,7 @@ I host this on a $120 `glinet slate ax`. You can also use the cheaper $30 `gline
 
 You can likely use other openwrt devices as well. The program is written in golang, if you don't mind recompiling or modifying the installer it should be able to run just about anywhere.
 
+# Development
 I searched the internet for a while and couldn't find any software that does this. I originally went down the path of using icecast but ran into large delays even after removing the buffer it was still around 5s. I tried mumble as well, but mid compiling the mumble webrtc proxy from 5 years ago and running into dependency issues I figured it would be easier to just write something purpose built myself. I almost modified umurmur to only enable broadcasting by certain users, but decided it's going to be a pain to get users to install this unfortuantely outdated and clumsy mumble app.
 
 # Installation
