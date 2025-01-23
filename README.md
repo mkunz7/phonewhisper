@@ -7,7 +7,7 @@ You no longer need to rent a $500 set of whisper devices that can be lost or pay
 
 Connections are established with websockets and voice is transmitted via WebRTC all locally. All phones can be in airplane mode and receive voice from the wifi on an travel router without internet.
 
-I host this on a `glinet slate ax`. You can also use the cheaper $30 `glinet opal`. It might be worth splurging for a faster router if you want to support 50+ users like my use case. The processor in the opal is about 68x slower than the slate, for phonewhisper I don't think the cpu speed will matter much.
+I host this on a `glinet slate ax`. You can also use the cheaper $30 `glinet opal`. It might be worth splurging for a faster router if you want to support 50+ users like my use case. When calculating pi, a fairly memory intensive operation as well, the opal took about 68x longer, for phonewhisper I don't think this will matter much. The more important features are likely range and network bandwidth.
 
 | Product|  Operating System | Memory| Processor            | Cores | Clock Speed | Time to Calculate 10,000,000 Digits of Pi |
 |---------|-----|----|---|-------|-------------|-------------------------------|
