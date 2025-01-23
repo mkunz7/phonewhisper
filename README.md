@@ -20,8 +20,11 @@ You can likely use other openwrt devices as well. The program is written in gola
 I searched the internet for a while and couldn't find any software that does this. I originally went down the path of using icecast but ran into large delays even after removing the buffer it was still around 5s. I tried mumble as well, but mid compiling the mumble webrtc proxy from 5 years ago and running into dependency issues I figured it would be easier to just write something purpose built myself. I almost modified umurmur to only enable broadcasting by certain users, but decided it's going to be a pain to get users to install this unfortuantely outdated and clumsy mumble app.
 
 # Installation
-## ssh into your device
+## Connect your travel router via ethernet
+Connect your travel router to the internet connecting the wan port to a port on your home router
 
+## ssh into your device
+from another computer
 ```
 ssh root@192.168.8.1
 ```
@@ -36,6 +39,8 @@ password is whatever you used during setup, default is goodlife
 curl https://raw.githubusercontent.com/mkunz7/phonewhisper/refs/heads/main/install.sh | sh
 ```
 that's it, this only takes seconds to install, if you see the word done it worked
+
+You can now disconnect the router from the internet it won't be needed anymore
 # Usage
 Connect to the wifi of your travel router. I recommend making a qr code using https://qifi.org.
 
