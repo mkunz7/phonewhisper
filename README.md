@@ -5,7 +5,7 @@ This is a modern take on offline voice chat in 2025 that does not require any ap
 
 You no longer need to rent a $500 set of whisper devices that can be lost or pay daily fees to LiveTours. 
 
-You can use your own wireless headphones like airpods and don't need to worry about hygene issues.
+You can use your own wireless headphones like airpods and don't need to worry about hygiene issues.
 
 Connections are established with websockets and voice is transmitted via WebRTC all locally. 
 
