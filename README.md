@@ -22,7 +22,7 @@ You can likely use other openwrt devices as well. The program is written in gola
 
 # Other Uses
 
-This software really opens the door to a lot of things and is not just limited to tour guides. You can make you own silent disco. Broadcast audio at at church. Broadcast audio at a tailgate. Stream audio from a tv at the gym. Stream audio around your house. Build your own intercom for your house. You could run this software on a pair of ubiquiti nano locos and for $100 get 6 mile line of sight audio links. 
+This software really opens the door to a lot of things and is not just limited to tour guides. You can make you own silent disco. Broadcast audio at at church. Broadcast audio at a tailgate. Stream audio from a tv at the gym. Stream audio around your house. Build your own intercom for your house. You could run this software on a pair of ubiquiti nanostation locos and for $100 get a 6 mile line of sight audio link. 
 
 # Development
 I searched the internet for a while and couldn't find any software that does this. I originally went down the path of using icecast but ran into large delays even after removing the buffer it was still around 5s. I tried mumble as well, but mid compiling the mumble webrtc proxy from 5 years ago and running into dependency issues I figured it would be easier to just write something purpose built myself. I almost modified umurmur to only enable broadcasting by certain users, but decided it's going to be a pain to get users to install this unfortuantely outdated and clumsy mumble app.
