@@ -113,7 +113,7 @@ Menu meters:
 - 10 users TX Rate = 15.3 kB/s, RX Rate = 80 kB/s
 - 50 users TX Rate = 72.3 kB/s, RX Rate = 386.4 kB/s
 
-Bandwidth wise the opal should be able to support 5,000 streams no problem. Having that many people connect to one wifi network is a different story.
+iftop isn't lying, bandwidth wise the opal should be able to support 5,000 streams no problem. Having that many people connect to one wifi network is a different story.
 
 # Screenshots
 ![IMG_3717](https://github.com/user-attachments/assets/644e9416-6e4b-432e-aecf-8a7b7f875ebe)
