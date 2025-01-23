@@ -11,8 +11,8 @@ I host this on a `glinet slate ax`. You can also use the cheaper $30 `glinet opa
 
 | Product|  Operating System | Processor            | Cores | Clock Speed | Time to Calculate 10,000,000 Digits of Pi |
 |---------|-----|-------|-------|-------------|-------------------------------|
-| GLiNet Opal | OpenWRT 18.06 | MIPS sf19a28  MIPSLE      | 4     | 800 MHz      | 7m 0.9355s        |
-| GLiNet Slate AX | OpenWRT 21.02 | ARM7 Qualcomm IPQ6000 ARMv7| 4     | 1.2 GHz      | 0m 6.1206s        |
+| GLiNet Opal | OpenWRT 18.06 | sf19a28  MIPSLE      | 4     | 800 MHz      | 7m 0.9355s        |
+| GLiNet Slate AX | OpenWRT 21.02 | Qualcomm IPQ6000 ARMv7| 4     | 1.2 GHz      | 0m 6.1206s        |
 
 You can likely use other openwrt devices as well. The program is written in golang, if you don't mind recompiling or modifying the installer it should be able to run just about anywhere.
 
