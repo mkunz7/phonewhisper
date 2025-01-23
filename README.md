@@ -87,7 +87,25 @@ Albeit too may older devices may impact how many users you can have connect at o
 Do a PR if you have a testimony you would like to share.
 
 # Bandwidth Usage
-iftop registers the wlan1 interface using 2mb for 5 devices during a voice broadcast, extrapolating 50 should only use 100mbps. Which is a lot for what is it is compared to mumble, but we have plenty to spare. I'm not sure how to measure latency for this, but it feels like a zoom call. `chrome://webrtc-internals/` gives all kinds of low numbers for bandwidth and latency, I trust with a grain of salt.
+I setup a broadcaster listening to a mr beast video and opened 50 listeners on my laptop connected via wifi to simulate 50 connected phones to the opal.
+
+The command line utility iftop for wlan1 is saying the network is only using 5.53mbit (691kB/s) for 50 users which is next to nothing.
+
+I didn't believe the numbers so I setup a wireshark capture to record all network traffic and I also spot checked with menumeters on my mac.
+
+Wireshark:
+- 10 users generated 41.7k packets in 60s, Wireshark Capture size 7mB
+- 50 users generated 205.9k packets in 60s, Wireshark Capture size 35mB
+
+Most the packets are UDP for webrtc.
+
+Menu meters:
+- 1 user TX Rate = 1.9kB/s, RX Rate = 8.0 kB/s
+- 5 users TX Rate = 8.1 kB/s, RX Rate = 39.2 kB/s
+- 10 users TX Rate = 15.3 kB/s, RX Rate = 80 kB/s
+- 50 users TX Rate = 72.3 kB/s, RX Rate = 386.4 kB/s
+
+Bandwidth wise the opal should be able to support 5,000 streams no problem. Having that many people connect to one wifi network is a different story.
 
 # Screenshots
 ![IMG_3717](https://github.com/user-attachments/assets/644e9416-6e4b-432e-aecf-8a7b7f875ebe)
